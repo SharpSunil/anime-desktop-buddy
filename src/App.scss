@@ -1,0 +1,252 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+}
+
+.buddy-app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+}
+
+.buddy-controls {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(20, 20, 30, 0.84);
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  backdrop-filter: blur(10px);
+}
+
+.buddy-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 7px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.status-dot,
+.voice-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: #42e889;
+  box-shadow: 0 0 9px rgba(66, 232, 137, 0.7);
+}
+
+.control-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.control-button:active {
+  transform: scale(0.96);
+}
+
+.control-button.active {
+  border-color: rgba(255, 190, 80, 0.4);
+  background: rgba(255, 190, 80, 0.16);
+}
+
+.close-button {
+  width: 30px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.voice-status {
+  position: absolute;
+  top: 62px;
+  right: 14px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(400px, calc(100vw - 28px));
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(20, 20, 30, 0.78);
+  color: #f4f4f8;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+.voice-indicator {
+  animation: voicePulse 1.5s infinite;
+}
+
+.listening-badge {
+  position: absolute;
+  top: 110px;
+  right: 14px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(80, 170, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(15, 35, 60, 0.85);
+  color: #dceeff;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.listening-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5bb5ff;
+  box-shadow: 0 0 0 0 rgba(91, 181, 255, 0.7);
+  animation: listeningPulse 1.2s infinite;
+}
+
+.character-container {
+  position: absolute;
+  bottom: -2px;
+  z-index: 10;
+  width: 120px;
+  height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  will-change: left;
+}
+
+.anime-character {
+  display: block;
+  width: 120px;
+  height: 180px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.anime-character img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.anime-character.face-left img {
+  transform: scaleX(-1);
+}
+
+.greeting-bubble {
+  position: absolute;
+  bottom: 170px;
+  left: 50%;
+  z-index: 20;
+  max-width: 240px;
+  padding: 11px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 14px 14px 14px 4px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #252535;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.16);
+  animation: greetingAppear 0.25s ease-out;
+  pointer-events: none;
+}
+
+@keyframes voicePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes listeningPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(91, 181, 255, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 7px rgba(91, 181, 255, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(91, 181, 255, 0);
+  }
+}
+
+@keyframes greetingAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
